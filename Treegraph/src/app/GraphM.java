@@ -13,7 +13,7 @@ public class GraphM extends AdjM{
 
     @Override //@Override คือ annotation ในภาษา Java ที่ใช้บอกคอมไพเลอร์ว่า: เมทอดนี้เป็นการ เขียนทับ (override) เมทอดที่มีอยู่ใน คลาสแม่ (superclass) หรือ interface
     public void addEdge(int i, int j, int weight){
-        this.matrix[i][j] = weight;
+        this.matrix[i][j] = weight; //************************************* */
         if(!isDirected){
             this.matrix[j][i] = weight;
         }

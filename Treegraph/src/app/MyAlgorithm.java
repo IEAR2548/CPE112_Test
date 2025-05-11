@@ -57,4 +57,26 @@ public class MyAlgorithm extends Algorithm{
         
         return minDist[destNode];
     }
+
+    public boolean warshall(GraphM graph, int startNode, int destNode){
+        boolean[][] reach = new boolean[graph.numVertices][graph.numVertices];
+        
+        for(int i = 0; i < graph.numVertices; i++){
+            for(int j = 0; j < graph.numVertices; j++){
+                reach[i][j] = (i == j || graph.matrix[i][j] != 0); //graph.matrix[i][j] = weight
+            }
+        }
+
+        for(int k = 0; k < graph.numVertices; k++){
+            for(int i = 0; i < graph.numVertices; i++){
+                for(int j = 0; j < graph.numVertices; j++){
+                    reach[i][j] |= (reach[i][k] && reach[k][j]); //ถ้ามีทางจาก i ไป k และจาก k ไป j → แสดงว่ามีทางจาก i ไป j ผ่าน k
+                                                                // ใช้ |=, หมายถึง "ถ้าเคย true แล้วก็ปล่อยไว้, ถ้ายัง false ก็อัปเดตเป็น true ถ้าเงื่อนไขขวาเป็นจริง"
+                }
+                
+            }
+            
+        }
+        return reach[startNode][destNode];
+    }
 }
