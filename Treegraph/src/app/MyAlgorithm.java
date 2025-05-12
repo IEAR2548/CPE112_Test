@@ -6,24 +6,99 @@ public class MyAlgorithm extends Algorithm{
     public MyAlgorithm(){
         
     }
+    
+    //for tree
+    public List<Integer> preorder(BST tree){
+      List<Integer> ans = new ArrayList<>();
+      preorderUtil(tree.root, ans);
+      return ans;
+    }
+
+    private void preorderUtil(BinNode node, List<Integer>ans){
+      if(node == null){
+        return;
+      }
+
+      ans.add(node.node);
+      preorderUtil(node.leftChild, ans);
+      preorderUtil(node.rightChild, ans);
+    }
 
     public List<Integer> inorder(BST tree){
-        List<Integer> ans = new ArrayList<>();
-        inorderUtil(tree.root, ans);
-        return ans;
+      List<Integer> ans = new ArrayList<>();
+      inorderUtil(tree.root, ans);
+      return ans;
     }
 
     private void inorderUtil(BinNode node, List<Integer>ans){
-        if(node == null){
-            return;
-        }
-        
-        inorderUtil(node.leftChild, ans);
-        ans.add(node.node);
-        inorderUtil(node.rightChild, ans);
-
+      if(node == null){
+          return;
+      }
+      
+      inorderUtil(node.leftChild, ans);
+      ans.add(node.node);
+      inorderUtil(node.rightChild, ans);
     }
 
+    public List<Integer> postorder(BST tree){
+      List<Integer> ans = new ArrayList<>();
+      postorderUtil(tree.root, ans);
+      return ans;
+    }
+
+    private void postorderUtil(BinNode node, List<Integer> ans){
+      if(node == null){
+        return;
+      }
+      postorderUtil(node.leftChild, ans);
+      postorderUtil(node.rightChild, ans);
+      ans.add(node.node);
+    }
+
+    //for graph
+    public List<Integer> dfs(GraphM graph, int startNode){
+      List<Integer> result = new ArrayList<>();
+      boolean[] isVisited = new boolean[graph.matrix.length];
+      
+      dfsUtil(graph, startNode, isVisited, result);
+
+      return result;
+    }
+    public void dfsUtil(GraphM graph, int curr, boolean[] isVisited, List<Integer> result){
+        isVisited[curr] = true; //Set the node to visited
+        result.add(curr); //Add node into result
+
+        for(int n = graph.matrix.length - 1; n >= 0 ; n--){
+            if (graph.matrix[curr][n] == 1 && !isVisited[n]) {
+                dfsUtil(graph, n, isVisited, result); //Recall func dfsUtil but start with neighbor not startnode
+            } //Check neighbor has edge? and is it visited?
+        } //Loop from heighest to less. Cause LIFO concept
+    }
+
+    public List<Integer> bfs(GraphL graph, int startNode){
+        List<Integer> result = new ArrayList<>();
+        boolean[] isVisited = new boolean[graph.adjacencyList.size()]; //Add range of arr from graph size but have to create size func in graphL
+        Queue<Integer> q = new LinkedList<>();
+
+        q.add(startNode);
+        isVisited[startNode] = true;
+
+        while (!q.isEmpty()) {
+            int curr = q.poll();
+            result.add(curr);
+
+            for (Pair<Integer, Integer> edge : graph.adjacencyList.get(curr)){
+                int n = edge.first; // first is from Pair<first, second> second = weight;
+                if (!isVisited[n]){
+                    isVisited[n] = true;
+                    q.add(n);
+                }
+            }
+        }        
+
+        return result;
+    }
+  
     public int dijkstra(GraphL graph, int startNode, int destNode){
         int[] minDist = new int[graph.numVertices];
         List<Integer> visitedList = new ArrayList<>();
