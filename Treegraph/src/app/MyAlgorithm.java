@@ -79,4 +79,34 @@ public class MyAlgorithm extends Algorithm{
         }
         return reach[startNode][destNode];
     }
+
+    public int floyd(GraphM graph, int startNode, int destNode){
+        int[][] dist = new int[graph.numVertices][graph.numVertices];
+
+        for (int i = 0; i < graph.numVertices; i++) {
+          for (int j = 0; j < graph.numVertices; j++) {
+            if (i == j) {
+              dist[i][j] = 0;
+            } else if (graph.matrix[i][j] != 0) {
+              dist[i][j] = graph.matrix[i][j];
+            } else {
+              dist[i][j] = 10000;
+            }
+          }
+        }
+
+        for (int k = 0; k < graph.numVertices; k++) {
+          for (int i = 0; i < graph.numVertices; i++) {
+            if (dist[i][k] == 10000)
+              continue;
+            for (int j = 0; j < graph.numVertices; j++) {
+              if (dist[i][k] != 10000 && dist[k][j] != 10000) {
+                dist[i][j] = Math.min(dist[i][j], dist[i][k] + dist[k][j]);
+              }
+            }
+          }
+        }
+
+        return dist[startNode][destNode] == 10000 ? -1 : dist[startNode][destNode]; //if = -1 -> cant reach
+    }
 }
