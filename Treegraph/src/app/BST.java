@@ -42,7 +42,7 @@ public class BST extends BinTree{
     
     public int getHeight(BinNode node){
         if (node == null) return 0;
-         return 1 + Math.max(getHeight(node.leftChild), getHeight(node.rightChild));
+        return 1 + Math.max(getHeight(node.leftChild), getHeight(node.rightChild));
     }
     
     public int getBalanceFactor(BinNode target){

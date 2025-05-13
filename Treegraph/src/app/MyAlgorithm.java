@@ -57,22 +57,23 @@ public class MyAlgorithm extends Algorithm{
 
     //for graph
     public List<Integer> dfs(GraphM graph, int startNode){
+        boolean[] isVisited = new boolean[graph.numVertices];
         List<Integer> result = new ArrayList<>();
-        boolean[] isVisited = new boolean[graph.matrix.length];
-
         dfsUtil(graph, startNode, isVisited, result);
-
         return result;
     }
-    public void dfsUtil(GraphM graph, int curr, boolean[] isVisited, List<Integer> result){
-        isVisited[curr] = true; //Set the node to visited
-        result.add(curr); //Add node into result
+    private void dfsUtil(GraphM graph, int currNode, boolean[] isVisited, List<Integer> result){
+        if(!isVisited[currNode]){
+            isVisited[currNode] = true;
+        }
+        result.add(currNode);
 
-        for(int n = graph.matrix.length - 1; n >= 0 ; n--){
-            if (graph.matrix[curr][n] == 1 && !isVisited[n]) {
-                dfsUtil(graph, n, isVisited, result); //Recall func dfsUtil but start with neighbor not startnode
-            } //Check neighbor has edge? and is it visited?
-        } //Loop from heighest to less. Cause LIFO concept
+        for(int i = 0; i < graph.numVertices; i++){
+            if(graph.matrix[currNode][i] != 0 && !isVisited[i]){
+                dfsUtil(graph, i, isVisited, result);
+            }
+        }
+
     }
 
     public List<Integer> bfs(GraphL graph, int startNode){
@@ -97,6 +98,36 @@ public class MyAlgorithm extends Algorithm{
         }        
 
         return result;
+    }
+
+    public int bfsDistance(GraphL graph, int startNode, int destNode){
+        List<Integer> result = new ArrayList<>();
+        boolean[] isVisited = new boolean[graph.adjacencyList.size()]; //Add range of arr from graph size but have to create size func in graphL
+        int[] distance = new int[graph.adjacencyList.size()];
+        Queue<Integer> q = new LinkedList<>();
+
+        q.add(startNode);
+        distance[startNode] = 0;
+        isVisited[startNode] = true;
+
+        while (!q.isEmpty()) {
+            int curr = q.poll();
+            if(destNode == curr){
+                return distance[curr];
+            }
+            result.add(curr);
+
+            for (Pair<Integer, Integer> edge : graph.adjacencyList.get(curr)){
+                int n = edge.first; // first is from Pair<first, second> second = weight;
+                if (!isVisited[n]){
+                    isVisited[n] = true;
+                    distance[n] = distance[curr] + 1;
+                    q.add(n);
+                }
+            }
+        }        
+
+        return -1;
     }
   
     public int dijkstra(GraphL graph, int startNode, int destNode){

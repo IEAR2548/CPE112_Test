@@ -62,7 +62,7 @@ public class survivalMain {
         int z = sc.nextInt(); // start
 
         MyAlgorithm myAlg = new MyAlgorithm();
-        if (myAlg.dijkstra(graph, s, v) == myAlg.dijkstra(graph, z, v)) {
+        if (myAlg.dijkstra(graph, s, v) >= myAlg.dijkstra(graph, z, v)) {
             System.out.println("SAFE");
         } else {
             System.out.println("TOO LATE");
