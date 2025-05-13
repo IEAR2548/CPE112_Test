@@ -2,7 +2,7 @@ package app;
 
 import java.util.*;
 
-public class dupliVindows {
+public class dupliVindowsMain {
     public static void main(String[] args) throws Exception {
         // goals --> preorder ออกมาแล้วได้ค่าเดิมก็พอ
         Scanner sc = new Scanner(System.in);
