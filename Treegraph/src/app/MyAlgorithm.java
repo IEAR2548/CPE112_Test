@@ -9,60 +9,60 @@ public class MyAlgorithm extends Algorithm{
     
     //for tree
     public List<Integer> preorder(BST tree){
-      List<Integer> ans = new ArrayList<>();
-      preorderUtil(tree.root, ans);
-      return ans;
+        List<Integer> ans = new ArrayList<>();
+        preorderUtil(tree.root, ans);
+        return ans;
     }
 
     private void preorderUtil(BinNode node, List<Integer>ans){
-      if(node == null){
-        return;
-      }
+        if(node == null){
+          return;
+        }
 
-      ans.add(node.node);
-      preorderUtil(node.leftChild, ans);
-      preorderUtil(node.rightChild, ans);
+        ans.add(node.node);
+        preorderUtil(node.leftChild, ans);
+        preorderUtil(node.rightChild, ans);
     }
 
     public List<Integer> inorder(BST tree){
-      List<Integer> ans = new ArrayList<>();
-      inorderUtil(tree.root, ans);
-      return ans;
+        List<Integer> ans = new ArrayList<>();
+        inorderUtil(tree.root, ans);
+        return ans;
     }
 
     private void inorderUtil(BinNode node, List<Integer>ans){
-      if(node == null){
-          return;
-      }
-      
-      inorderUtil(node.leftChild, ans);
-      ans.add(node.node);
-      inorderUtil(node.rightChild, ans);
+        if(node == null){
+            return;
+        }
+
+        inorderUtil(node.leftChild, ans);
+        ans.add(node.node);
+        inorderUtil(node.rightChild, ans);
     }
 
     public List<Integer> postorder(BST tree){
-      List<Integer> ans = new ArrayList<>();
-      postorderUtil(tree.root, ans);
-      return ans;
+        List<Integer> ans = new ArrayList<>();
+        postorderUtil(tree.root, ans);
+        return ans;
     }
 
     private void postorderUtil(BinNode node, List<Integer> ans){
-      if(node == null){
-        return;
-      }
-      postorderUtil(node.leftChild, ans);
-      postorderUtil(node.rightChild, ans);
-      ans.add(node.node);
+        if(node == null){
+          return;
+        }
+        postorderUtil(node.leftChild, ans);
+        postorderUtil(node.rightChild, ans);
+        ans.add(node.node);
     }
 
     //for graph
     public List<Integer> dfs(GraphM graph, int startNode){
-      List<Integer> result = new ArrayList<>();
-      boolean[] isVisited = new boolean[graph.matrix.length];
-      
-      dfsUtil(graph, startNode, isVisited, result);
+        List<Integer> result = new ArrayList<>();
+        boolean[] isVisited = new boolean[graph.matrix.length];
 
-      return result;
+        dfsUtil(graph, startNode, isVisited, result);
+
+        return result;
     }
     public void dfsUtil(GraphM graph, int curr, boolean[] isVisited, List<Integer> result){
         isVisited[curr] = true; //Set the node to visited
@@ -113,7 +113,6 @@ public class MyAlgorithm extends Algorithm{
             int cumulativeDist = walker.peek().first;
             int nodeNow = walker.peek().second;
             walker.remove();
-
             if(visitedList.contains(nodeNow)){
                 continue;
             }

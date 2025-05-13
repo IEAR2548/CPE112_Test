@@ -53,6 +53,7 @@ public class Main {
             }
         }
 
+        // เปรียบเทียบเอาค่าที่ห่างจาก leaf น้อยที่สุด
         PriorityQueue<Pair<Integer, Integer>> result = new PriorityQueue<>();
         for (int i = 0; i < leaf.size(); i++) {
             int minWeight = myAlg.dijkstra(graphL, leaf.get(i), destNode);
@@ -177,6 +178,9 @@ public class Main {
         }
         sc.close();
 
+        /***********************************
+         * Survival Ep.2
+         ***********************************/
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
         int m = sc.nextInt();
